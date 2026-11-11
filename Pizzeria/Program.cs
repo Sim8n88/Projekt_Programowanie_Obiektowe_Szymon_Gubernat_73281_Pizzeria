@@ -15,12 +15,15 @@ namespace Pizzeria
             ApplicationConfiguration.Initialize();
 
 
-            Napoj cola = new Napoj(1, "Cola", 6.00M, 500);
-            MessageBox.Show(cola.ToString());
+            Klient staly = new Klient(1, "Jan", "Kowalski", "123456789", "Rynek 1", true);
+            Klient zwykly = new Klient(2, "Anna", "Nowak", "987654321", "Lipowa 5", false);
+
+            MessageBox.Show($"{staly} rabat: {staly.RabatProcent()}%");
+            MessageBox.Show($"{zwykly} rabat: {zwykly.RabatProcent()}%");
 
             try
             {
-                Napoj zly = new Napoj(2, "Woda", 4.00M, 0);
+                Klient zly = new Klient(3, "Adam", "Test", "12345678", "Dluga 2", false);
             }
             catch (ArgumentException e)
             {
@@ -29,7 +32,7 @@ namespace Pizzeria
 
             try
             {
-                Napoj zly2 = new Napoj(3, "Sok", 5.00M, -250);
+                Klient zly2 = new Klient(4, "Ewa", "Test", "12345abcd", "Dluga 3", false);
             }
             catch (ArgumentException e)
             {
