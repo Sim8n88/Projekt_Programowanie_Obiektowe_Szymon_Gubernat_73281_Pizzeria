@@ -7,7 +7,7 @@ namespace Pizzeria.Models.Klasy
   public class Dodatek
     {
         public int Id { get; set; }
-        private string _nazwa;
+        private string _nazwa=string.Empty;
         public string Nazwa
         {
             get
