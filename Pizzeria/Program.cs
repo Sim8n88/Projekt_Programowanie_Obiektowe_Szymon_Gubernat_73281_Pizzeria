@@ -14,36 +14,29 @@ namespace Pizzeria
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
-            Pizza pizza1 = new Pizza(1, "Pepporoni", 20.00M, RozmiarPizzy.Mala);
-            Pizza pizza2 = new Pizza(1, "Pepporoni", 20.00M, RozmiarPizzy.Srednia);
-            Pizza pizza3 = new Pizza(1, "Pepporoni", 20.00M, RozmiarPizzy.Duza);
-            Dodatek ser = new Dodatek(1, "Ser", 3.00M);
-            for (int i = 0; i < 5; i++)
-            {
-                pizza1.DodajDodatek(ser);
-            }
+
+            Napoj cola = new Napoj(1, "Cola", 6.00M, 500);
+            MessageBox.Show(cola.ToString());
 
             try
             {
-                pizza1.DodajDodatek(ser);   
+                Napoj zly = new Napoj(2, "Woda", 4.00M, 0);
             }
-            catch (InvalidOperationException e)
+            catch (ArgumentException e)
             {
                 MessageBox.Show(e.Message);
             }
 
             try
             {
-                pizza1.DodajDodatek(null);  
+                Napoj zly2 = new Napoj(3, "Sok", 5.00M, -250);
             }
-            catch (ArgumentNullException e)
+            catch (ArgumentException e)
             {
                 MessageBox.Show(e.Message);
             }
-            pizza1.UsunDodatek(ser);
-            MessageBox.Show(pizza1.ToString());
-            MessageBox.Show(pizza2.ToString());
-            MessageBox.Show(pizza3.ToString());
+
+            Application.Run(new Form1());
             Application.Run(new Form1());
         }
     }
