@@ -15,12 +15,15 @@ namespace Pizzeria
             ApplicationConfiguration.Initialize();
 
 
-            StrefaDostawy centrum = new StrefaDostawy(1, "Centrum", 5.00M, 30.00M);
-            MessageBox.Show(centrum.ToString());
+            Pizza p = new Pizza(1, "Pepperoni", 20.00M, RozmiarPizzy.Duza);
+            p.DodajDodatek(new Dodatek(1, "Ser", 3.00M));
+
+            PozycjaZamowienia poz = new PozycjaZamowienia(1, p, 2);
+            MessageBox.Show(poz.ToString());
 
             try
             {
-                StrefaDostawy zla = new StrefaDostawy(2, "Wies", -1M, 40M);
+                PozycjaZamowienia zla = new PozycjaZamowienia(2, p, 0);
             }
             catch (ArgumentException e)
             {
@@ -29,9 +32,9 @@ namespace Pizzeria
 
             try
             {
-                StrefaDostawy zla2 = new StrefaDostawy(3, "Obrzeza", 8M, -10M);
+                PozycjaZamowienia zla2 = new PozycjaZamowienia(3, null!, 1);
             }
-            catch (ArgumentException e)
+            catch (ArgumentNullException e)
             {
                 MessageBox.Show(e.Message);
             }
@@ -39,7 +42,6 @@ namespace Pizzeria
 
 
 
-       
             Application.Run(new Form1());
         }
     }
