@@ -12,19 +12,53 @@ namespace Pizzeria.Models.Klasy
         {
             Rozmiar = rozmiar;
         }
+        private List<Dodatek> _dodatki = new List<Dodatek>();
+        public void DodajDodatek(Dodatek dodatek)
+        {
+            if (dodatek == null)
+            {
+                throw new ArgumentNullException(nameof(dodatek));
+            }
+         
+            if (_dodatki.Count >= 5)
+            {
+                throw new InvalidOperationException("Maksymalnie pięć dodatków");
+            }
+            _dodatki.Add(dodatek);
+
+        }
+        public void UsunDodatek(Dodatek dodatek)
+        {
+
+            if (dodatek == null)
+            {
+                throw new ArgumentNullException(nameof(dodatek));
+            }
+            _dodatki.Remove(dodatek);
+        }
         public override decimal ObliczCene()
         {
+            decimal cena;
             switch (Rozmiar)
             {
+               
                 case RozmiarPizzy.Duza:
-                    return Cena_Bazowa * 1.6M;
+                    cena =Cena_Bazowa * 1.6M;
+                    break;
                 case RozmiarPizzy.Srednia:
-                    return Cena_Bazowa * 1.3M;
+                    cena= Cena_Bazowa * 1.3M;
+                    break;
                 case RozmiarPizzy.Mala:
-                    return Cena_Bazowa;
+                    cena= Cena_Bazowa;
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(Rozmiar), "Nieznany rozmiar pizzy");
             }
+            foreach(Dodatek dodatek in _dodatki)
+            {
+                cena += dodatek.Cena;
+            }
+            return cena;
             
         }
 
