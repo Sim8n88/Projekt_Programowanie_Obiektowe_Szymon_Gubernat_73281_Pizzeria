@@ -15,39 +15,31 @@ namespace Pizzeria
             ApplicationConfiguration.Initialize();
 
 
-            ApplicationConfiguration.Initialize();
-
-            Dostawca d = new Dostawca(1, "Piotr", "Wrona", "111222333", "Skuter");
-            MessageBox.Show(d.ToString());
-
-            d.RozpocznijDostawe();
-            MessageBox.Show(d.ToString());
+            StrefaDostawy centrum = new StrefaDostawy(1, "Centrum", 5.00M, 30.00M);
+            MessageBox.Show(centrum.ToString());
 
             try
             {
-                d.RozpocznijDostawe();   
+                StrefaDostawy zla = new StrefaDostawy(2, "Wies", -1M, 40M);
             }
-            catch (InvalidOperationException e)
+            catch (ArgumentException e)
             {
                 MessageBox.Show(e.Message);
             }
 
-            d.ZakonczDostawe();
-            MessageBox.Show($"{d}, dostaw: {d.Liczba_Dostaw}");
-
             try
             {
-                d.ZakonczDostawe();     
+                StrefaDostawy zla2 = new StrefaDostawy(3, "Obrzeza", 8M, -10M);
             }
-            catch (InvalidOperationException e)
+            catch (ArgumentException e)
             {
                 MessageBox.Show(e.Message);
             }
 
 
-            Application.Run(new Form1());
 
-            Application.Run(new Form1());
+
+       
             Application.Run(new Form1());
         }
     }
