@@ -31,6 +31,12 @@ namespace Pizzeria.Models.Klasy
         {
             Pojazd = pojazd;
         }
+        public Dostawca(int id, string imie, string nazwisko, string telefon, string pojazd, StatusDostawcy status, int liczba_dostaw)
+            : this(id, imie, nazwisko, telefon, pojazd)
+        {
+            Status_Dostawcy = status;
+            Liczba_Dostaw = liczba_dostaw;
+        }
         public override string Rola()
         {
             return "Dostawca";
