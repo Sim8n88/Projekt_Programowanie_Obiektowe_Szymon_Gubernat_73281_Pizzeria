@@ -51,6 +51,12 @@ namespace Pizzeria.Models.Klasy
             Adres_Dostawy = adres_dostawy;
             Strefa = strefa;
         }
+        public ZamowienieZDostawa(int id, Klient klient, string adres_dostawy, StrefaDostawy strefa, DateTime data_zlozenia)
+        : base(id, klient, data_zlozenia)
+        {
+            Adres_Dostawy = adres_dostawy;
+            Strefa = strefa;
+        }
         public override decimal KosztDostawy()
         {
             return Strefa.Koszt_Dowozu;

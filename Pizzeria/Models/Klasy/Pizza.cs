@@ -13,6 +13,10 @@ namespace Pizzeria.Models.Klasy
             Rozmiar = rozmiar;
         }
         private List<Dodatek> _dodatki = new List<Dodatek>();
+        public IReadOnlyList<Dodatek> Dodatki
+        {
+            get { return _dodatki; }
+        }
         public void DodajDodatek(Dodatek dodatek)
         {
             if (dodatek == null)

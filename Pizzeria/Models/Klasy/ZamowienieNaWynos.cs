@@ -29,6 +29,11 @@ namespace Pizzeria.Models.Klasy
         {
             Godzina_Odbioru = godzina_odbioru;
         }
+        public ZamowienieNaWynos(int id, Klient klient, DateTime godzina_odbioru, DateTime data_zlozenia)
+        : base(id, klient, data_zlozenia)
+        {
+            Godzina_Odbioru = godzina_odbioru;
+        }
         public override decimal KosztDostawy()
         {
             return 0;

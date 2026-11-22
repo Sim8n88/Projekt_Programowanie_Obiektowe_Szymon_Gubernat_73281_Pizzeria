@@ -33,6 +33,10 @@ namespace Pizzeria.Models.Klasy
             Id = id;
             Klient = klient;
             }
+        public Zamowienie(int id, Klient klient, DateTime data_zlozenia) : this(id, klient)
+        {
+            Data_Zlozenia = data_zlozenia;
+        }
         private List<PozycjaZamowienia> _pozycje = new List<PozycjaZamowienia>();
         public void DodajPozycje(PozycjaZamowienia pozycja)
         {
@@ -105,6 +109,10 @@ namespace Pizzeria.Models.Klasy
             }
 
             Status = nowyStatus;
+        }
+        public void PrzywrocStatus(StatusZamowienia status)
+        {
+            Status = status;
         }
     }
 }

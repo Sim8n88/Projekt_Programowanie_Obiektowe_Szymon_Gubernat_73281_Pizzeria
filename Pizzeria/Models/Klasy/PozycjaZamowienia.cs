@@ -50,6 +50,11 @@ namespace Pizzeria.Models.Klasy
             Ilosc = ilosc;
             Cena_Jednostkowa = produkt.ObliczCene();
         }
+        public PozycjaZamowienia(int id, Produkt produkt, int ilosc, decimal cena_jednostkowa)
+        : this(id, produkt, ilosc)
+        {
+            Cena_Jednostkowa = cena_jednostkowa;
+        }
         public decimal Wartosc()
         {
             return Cena_Jednostkowa * Ilosc;
