@@ -18,23 +18,40 @@ namespace Pizzeria
 
             Pizzeria.Data.Baza.Inicjalizuj();
 
-            var dodatki = new Pizzeria.Data.DodatekRepository();
-            int idDodatku = dodatki.Dodaj(new Dodatek(1, "Ser", 3.00M));
+            var klienci = new Pizzeria.Data.KlientRepository();
+            var strefy = new Pizzeria.Data.StrefaRepository();
+            var produkty = new Pizzeria.Data.ProduktRepository();
+            var zamowienia = new Pizzeria.Data.ZamowienieRepository();
 
-            var pizza = new Pizza(1, "Pepperoni", 20.00M, RozmiarPizzy.Duza);
-            pizza.DodajDodatek(new Dodatek(idDodatku, "Ser", 3.00M));
+            int idKlienta = klienci.Dodaj(new Klient(1, "Jan", "Kowalski", "123456789", "Rynek 1", true));
+            int idStrefy = strefy.Dodaj(new StrefaDostawy(1, "Centrum", 5.00M, 30.00M));
+            int idPizzy = produkty.Dodaj(new Pizza(1, "Pepperoni", 20.00M, RozmiarPizzy.Duza));
+            int idNapoju = produkty.Dodaj(new Napoj(1, "Cola", 6.00M, 500));
 
-            var repo = new Pizzeria.Data.ProduktRepository();
-            int idPizzy = repo.Dodaj(pizza);
-            int idNapoju = repo.Dodaj(new Napoj(1, "Cola", 6.00M, 500));
+            var klient = new Klient(idKlienta, "Jan", "Kowalski", "123456789", "Rynek 1", true);
+            var strefa = new StrefaDostawy(idStrefy, "Centrum", 5.00M, 30.00M);
+            var pizza = new Pizza(idPizzy, "Pepperoni", 20.00M, RozmiarPizzy.Duza);
+            var cola = new Napoj(idNapoju, "Cola", 6.00M, 500);
 
-            var wszystkie = repo.PobierzWszystkie();
-            MessageBox.Show(string.Join("\n", wszystkie));
+            var zamowienie = new ZamowienieZDostawa(1, klient, "Rynek 1", strefa);
+            zamowienie.DodajPozycje(new PozycjaZamowienia(1, pizza, 2));
+            zamowienie.DodajPozycje(new PozycjaZamowienia(2, cola, 1));
+            int idZamowienia = zamowienia.Dodaj(zamowienie);
 
-            repo.Usun(idPizzy);
-            repo.Usun(idNapoju);
-            dodatki.Usun(idDodatku);
-            MessageBox.Show($"Po usunięciu: {repo.PobierzWszystkie().Count} produktów w bazie");
+            var odczytane = zamowienia.PobierzWszystkie().Find(z => z.Id == idZamowienia);
+            MessageBox.Show($"{odczytane}\nStatus: {odczytane.Status}, pozycji: {odczytane.Pozycje.Count}");
+
+            odczytane.ZmienStatus(StatusZamowienia.W_Przygotowaniu);
+            zamowienia.Zmien(odczytane);
+            var poZmianie = zamowienia.PobierzWszystkie().Find(z => z.Id == idZamowienia);
+            MessageBox.Show($"Po zmianie statusu: {poZmianie.Status}");
+
+            zamowienia.Usun(idZamowienia);
+            produkty.Usun(idPizzy);
+            produkty.Usun(idNapoju);
+            strefy.Usun(idStrefy);
+            klienci.Usun(idKlienta);
+            MessageBox.Show($"Po usunięciu: {zamowienia.PobierzWszystkie().Count} zamówień w bazie");
 
             Application.Run(new Form1());
 
