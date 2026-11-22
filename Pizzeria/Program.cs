@@ -18,17 +18,23 @@ namespace Pizzeria
 
             Pizzeria.Data.Baza.Inicjalizuj();
 
-            var repo = new Pizzeria.Data.DostawcaRepository();
+            var dodatki = new Pizzeria.Data.DodatekRepository();
+            int idDodatku = dodatki.Dodaj(new Dodatek(1, "Ser", 3.00M));
 
-            int id = repo.Dodaj(new Dostawca(1, "Piotr", "Wrona", "111222333", "Skuter"));
-            MessageBox.Show($"Dodano, Id = {id}");
+            var pizza = new Pizza(1, "Pepperoni", 20.00M, RozmiarPizzy.Duza);
+            pizza.DodajDodatek(new Dodatek(idDodatku, "Ser", 3.00M));
 
-            repo.Zmien(new Dostawca(id, "Piotr", "Wrona", "111222333", "Rower", StatusDostawcy.W_Drodze, 5));
-            var po = repo.PobierzWszystkie().Find(d => d.Id == id);
-            MessageBox.Show($"Po zmianie: {po.Pojazd}, {po.Status_Dostawcy}, dostaw: {po.Liczba_Dostaw}");
+            var repo = new Pizzeria.Data.ProduktRepository();
+            int idPizzy = repo.Dodaj(pizza);
+            int idNapoju = repo.Dodaj(new Napoj(1, "Cola", 6.00M, 500));
 
-            repo.Usun(id);
-            MessageBox.Show($"Po usunięciu: {repo.PobierzWszystkie().Count} dostawców w bazie");
+            var wszystkie = repo.PobierzWszystkie();
+            MessageBox.Show(string.Join("\n", wszystkie));
+
+            repo.Usun(idPizzy);
+            repo.Usun(idNapoju);
+            dodatki.Usun(idDodatku);
+            MessageBox.Show($"Po usunięciu: {repo.PobierzWszystkie().Count} produktów w bazie");
 
             Application.Run(new Form1());
 

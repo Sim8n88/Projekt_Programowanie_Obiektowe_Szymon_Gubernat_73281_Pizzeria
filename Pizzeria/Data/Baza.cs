@@ -34,6 +34,10 @@ namespace Pizzeria.Data
             cmd.ExecuteNonQuery();
             cmd.CommandText = "CREATE TABLE IF NOT EXISTS Dostawcy (    Id INTEGER PRIMARY KEY AUTOINCREMENT,  Imie TEXT NOT NULL,   Nazwisko TEXT NOT NULL,    Telefon TEXT NOT NULL,    Pojazd TEXT NOT NULL,    Status INTEGER NOT NULL,    LiczbaDostaw INTEGER NOT NULL);";
             cmd.ExecuteNonQuery();
+            cmd.CommandText = "CREATE TABLE IF NOT EXISTS Produkty (    Id INTEGER PRIMARY KEY AUTOINCREMENT,   Typ TEXT NOT NULL,  Nazwa TEXT NOT NULL,    CenaBazowa REAL NOT NULL,    Rozmiar INTEGER,    PojemnoscMl INTEGER);";
+            cmd.ExecuteNonQuery();
+            cmd.CommandText = "CREATE TABLE IF NOT EXISTS PizzaDodatki (PizzaId INTEGER NOT NULL, DodatekId INTEGER NOT NULL);";
+            cmd.ExecuteNonQuery();
         }
     }
 }
