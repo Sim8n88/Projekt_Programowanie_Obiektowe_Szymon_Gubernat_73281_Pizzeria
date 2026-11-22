@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Data.Sqlite;
+﻿using Microsoft.Data.Sqlite;
 using Pizzeria.Models.Klasy;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Pizzeria.Data
 {
@@ -19,5 +20,21 @@ namespace Pizzeria.Data
             cmd.Parameters.Clear();
             return Convert.ToInt32(cmd.ExecuteScalar());
         }
+        public List<Dodatek> PobierzWszystkie()
+        {
+            var lista = new List<Dodatek>();
+            using var polaczenie = Baza.PolaczZBaza();
+            var cmd = polaczenie.CreateCommand();
+            cmd.CommandText = "SELECT Id,Nazwa,Cena FROM Dodatki;";
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                int id=reader.GetInt32(0);
+                string nazwa=reader.GetString(1);
+                decimal cena reader.GetDecimal(2);
+                Dodatek dodatek = new Dodatek(id, nazwa, cena);
+            }
+        }
     }
+        
 }

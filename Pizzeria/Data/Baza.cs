@@ -24,6 +24,7 @@ namespace Pizzeria.Data
             KosztDowozu REAL NOT NULL,
             MinimalnaKwota REAL NOT NULL
         );";
+            cmd.ExecuteNonQuery();
             cmd.CommandText = @"CREATE TABLE IF NOT EXISTS Dodatki (
                 Id INTEGER PRIMARY KEY AUTOINCREMENT,
                 Nazwa TEXT NOT NULL,
