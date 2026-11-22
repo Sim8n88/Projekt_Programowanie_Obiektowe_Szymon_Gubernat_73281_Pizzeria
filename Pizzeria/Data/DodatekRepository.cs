@@ -29,11 +29,31 @@ namespace Pizzeria.Data
             using var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                int id=reader.GetInt32(0);
-                string nazwa=reader.GetString(1);
-                decimal cena reader.GetDecimal(2);
+                int id = reader.GetInt32(0);
+                string nazwa = reader.GetString(1);
+                decimal cena = reader.GetDecimal(2);
                 Dodatek dodatek = new Dodatek(id, nazwa, cena);
+                lista.Add(dodatek);
             }
+            return lista;
+        }
+        public void Usun(int id)
+        {
+            using var polaczenie = Baza.PolaczZBaza();
+            var cmd = polaczenie.CreateCommand();
+            cmd.CommandText = "DELETE FROM Dodatki WHERE Id=@id;";
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.ExecuteNonQuery();
+        }
+        public void Zmien(Dodatek dodatek)
+        {
+            using var polaczenie = Baza.PolaczZBaza();
+            var cmd = polaczenie.CreateCommand();
+            cmd.CommandText = "UPDATE Dodatki SET Nazwa=@nazwa,Cena=@cena WHERE Id=@id;";
+            cmd.Parameters.AddWithValue("@nazwa", dodatek.Nazwa);
+            cmd.Parameters.AddWithValue("@cena", dodatek.Cena);
+            cmd.Parameters.AddWithValue("@id", dodatek.Id);
+            cmd.ExecuteNonQuery();
         }
     }
         
