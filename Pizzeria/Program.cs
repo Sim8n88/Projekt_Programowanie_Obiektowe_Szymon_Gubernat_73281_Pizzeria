@@ -17,17 +17,19 @@ namespace Pizzeria
            
 
             Pizzeria.Data.Baza.Inicjalizuj();
-            var repo = new Pizzeria.Data.DodatekRepository();
 
-            int id = repo.Dodaj(new Dodatek(1, "Ser", 3.00M));
+            var repo = new Pizzeria.Data.KlientRepository();
+
+            int id = repo.Dodaj(new Klient(1, "Jan", "Kowalski", "123456789", "Rynek 1", false));
             MessageBox.Show($"Dodano, Id = {id}");
 
-            repo.Zmien(new Dodatek(id, "Podwójny ser", 4.50M));
-            var po = repo.PobierzWszystkie().Find(d => d.Id == id);
-            MessageBox.Show($"Po zmianie: {po.Nazwa}, {po.Cena} zł");
+            repo.Zmien(new Klient(id, "Jan", "Nowak", "987654321", "Lipowa 5", true));
+            var po = repo.PobierzWszystkie().Find(k => k.Id == id);
+            MessageBox.Show($"Po zmianie: {po.Nazwisko}, {po.Adres}, stały: {po.Staly_Klient}");
 
             repo.Usun(id);
-            MessageBox.Show($"Po usunięciu: {repo.PobierzWszystkie().Count} dodatków w bazie");
+            MessageBox.Show($"Po usunięciu: {repo.PobierzWszystkie().Count} klientów w bazie");
+
             Application.Run(new Form1());
 
 
