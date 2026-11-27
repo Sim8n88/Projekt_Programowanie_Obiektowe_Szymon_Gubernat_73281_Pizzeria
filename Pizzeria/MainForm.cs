@@ -6,7 +6,11 @@ namespace Pizzeria
     {
         private readonly StrefaRepository _strefyRepo = new StrefaRepository();
 
-        
+        public MainForm()
+        {
+            InitializeComponent();
+            OdswiezStrefy();
+        }
 
         private void OdswiezStrefy()
         {
@@ -32,6 +36,46 @@ namespace Pizzeria
                     _strefyRepo.Dodaj(okno.Wynik);
                     OdswiezStrefy();
                 }
+            }
+        }
+        private void btnEdytujStrefe_Click(object sender, EventArgs e)
+        {
+            if (dgvStrefy.CurrentRow == null)
+            {
+                return;
+            }
+
+            var wybrana = (StrefaDostawy)dgvStrefy.CurrentRow.DataBoundItem;
+
+            using (var okno = new StrefaForm(wybrana))
+            {
+                if (okno.ShowDialog() == DialogResult.OK && okno.Wynik != null)
+                {
+                    _strefyRepo.Zmien(okno.Wynik);
+                    OdswiezStrefy();
+                }
+            }
+        }
+
+        private void btnUsunStrefe_Click(object sender, EventArgs e)
+        {
+            if (dgvStrefy.CurrentRow == null)
+            {
+                return;
+            }
+
+            var wybrana = (StrefaDostawy)dgvStrefy.CurrentRow.DataBoundItem;
+
+            var odpowiedz = MessageBox.Show(
+                "Czy na pewno usunąć strefę „" + wybrana.Nazwa + "”?",
+                "Potwierdzenie",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (odpowiedz == DialogResult.Yes)
+            {
+                _strefyRepo.Usun(wybrana.Id);
+                OdswiezStrefy();
             }
         }
     }

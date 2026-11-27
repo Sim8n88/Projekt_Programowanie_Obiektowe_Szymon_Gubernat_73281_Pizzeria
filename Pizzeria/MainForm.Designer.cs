@@ -2,15 +2,8 @@
 {
     partial class MainForm
     {
-        /// <summary>
-        ///  Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        ///  Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,10 +15,6 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        ///  Required method for Designer support - do not modify
-        ///  the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             tabControl1 = new TabControl();
@@ -45,9 +34,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvStrefy).BeginInit();
             panelPrzyciski.SuspendLayout();
             SuspendLayout();
-            // 
-            // tabControl1
-            // 
+
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
@@ -60,9 +47,7 @@
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(982, 553);
             tabControl1.TabIndex = 0;
-            // 
-            // tabPage1
-            // 
+
             tabPage1.Location = new Point(4, 29);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
@@ -71,9 +56,7 @@
             tabPage1.Text = "Zamówienia";
             tabPage1.UseVisualStyleBackColor = true;
             tabPage1.Click += tabPage1_Click;
-            // 
-            // tabPage2
-            // 
+
             tabPage2.Location = new Point(4, 29);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
@@ -81,9 +64,7 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Klienci";
             tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
+
             tabPage3.Location = new Point(4, 29);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
@@ -91,9 +72,7 @@
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Dostawcy";
             tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // tabPage4
-            // 
+
             tabPage4.Location = new Point(4, 29);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new Padding(3);
@@ -101,9 +80,7 @@
             tabPage4.TabIndex = 3;
             tabPage4.Text = "Produkty";
             tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // tabPage5
-            // 
+
             tabPage5.Location = new Point(4, 29);
             tabPage5.Name = "tabPage5";
             tabPage5.Padding = new Padding(3);
@@ -111,9 +88,7 @@
             tabPage5.TabIndex = 4;
             tabPage5.Text = "Dodatki";
             tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // tabPage6
-            // 
+
             tabPage6.Controls.Add(dgvStrefy);
             tabPage6.Controls.Add(panelPrzyciski);
             tabPage6.Location = new Point(4, 29);
@@ -123,9 +98,7 @@
             tabPage6.TabIndex = 5;
             tabPage6.Text = "Strefy dostawy";
             tabPage6.UseVisualStyleBackColor = true;
-            // 
-            // dgvStrefy
-            // 
+
             dgvStrefy.AllowUserToAddRows = false;
             dgvStrefy.AllowUserToDeleteRows = false;
             dgvStrefy.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -139,9 +112,7 @@
             dgvStrefy.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvStrefy.Size = new Size(968, 464);
             dgvStrefy.TabIndex = 1;
-            // 
-            // panelPrzyciski
-            // 
+
             panelPrzyciski.Controls.Add(btnUsunStrefe);
             panelPrzyciski.Controls.Add(btnEdytujStrefe);
             panelPrzyciski.Controls.Add(btnDodajStrefe);
@@ -150,37 +121,31 @@
             panelPrzyciski.Name = "panelPrzyciski";
             panelPrzyciski.Size = new Size(968, 50);
             panelPrzyciski.TabIndex = 0;
-            // 
-            // btnUsunStrefe
-            // 
-            btnUsunStrefe.Location = new Point(623, 0);
+
+            btnUsunStrefe.Location = new Point(260, 9);
             btnUsunStrefe.Name = "btnUsunStrefe";
-            btnUsunStrefe.Size = new Size(94, 44);
+            btnUsunStrefe.Size = new Size(110, 32);
             btnUsunStrefe.TabIndex = 2;
             btnUsunStrefe.Text = "Usuń";
             btnUsunStrefe.UseVisualStyleBackColor = true;
-            // 
-            // btnEdytujStrefe
-            // 
-            btnEdytujStrefe.Location = new Point(431, 0);
+            btnUsunStrefe.Click += btnUsunStrefe_Click;
+
+            btnEdytujStrefe.Location = new Point(140, 9);
             btnEdytujStrefe.Name = "btnEdytujStrefe";
-            btnEdytujStrefe.Size = new Size(94, 44);
+            btnEdytujStrefe.Size = new Size(110, 32);
             btnEdytujStrefe.TabIndex = 1;
             btnEdytujStrefe.Text = "Edytuj";
             btnEdytujStrefe.UseVisualStyleBackColor = true;
-            // 
-            // btnDodajStrefe
-            // 
-            btnDodajStrefe.Location = new Point(239, 0);
+            btnEdytujStrefe.Click += btnEdytujStrefe_Click;
+
+            btnDodajStrefe.Location = new Point(20, 9);
             btnDodajStrefe.Name = "btnDodajStrefe";
-            btnDodajStrefe.Size = new Size(94, 44);
+            btnDodajStrefe.Size = new Size(110, 32);
             btnDodajStrefe.TabIndex = 0;
             btnDodajStrefe.Text = "Dodaj";
             btnDodajStrefe.UseVisualStyleBackColor = true;
             btnDodajStrefe.Click += btnDodajStrefe_Click;
-            // 
-            // MainForm
-            // 
+
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(982, 553);
