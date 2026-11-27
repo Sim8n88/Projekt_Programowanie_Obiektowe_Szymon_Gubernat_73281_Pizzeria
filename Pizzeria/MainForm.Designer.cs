@@ -23,6 +23,11 @@
             tabPage3 = new TabPage();
             tabPage4 = new TabPage();
             tabPage5 = new TabPage();
+            dgvDodatki = new DataGridView();
+            panelDodatki = new Panel();
+            btnUsunDodatek = new Button();
+            btnEdytujDodatek = new Button();
+            btnDodajDodatek = new Button();
             tabPage6 = new TabPage();
             dgvStrefy = new DataGridView();
             panelPrzyciski = new Panel();
@@ -30,6 +35,9 @@
             btnEdytujStrefe = new Button();
             btnDodajStrefe = new Button();
             tabControl1.SuspendLayout();
+            tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvDodatki).BeginInit();
+            panelDodatki.SuspendLayout();
             tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvStrefy).BeginInit();
             panelPrzyciski.SuspendLayout();
@@ -81,6 +89,8 @@
             tabPage4.Text = "Produkty";
             tabPage4.UseVisualStyleBackColor = true;
 
+            tabPage5.Controls.Add(dgvDodatki);
+            tabPage5.Controls.Add(panelDodatki);
             tabPage5.Location = new Point(4, 29);
             tabPage5.Name = "tabPage5";
             tabPage5.Padding = new Padding(3);
@@ -88,6 +98,53 @@
             tabPage5.TabIndex = 4;
             tabPage5.Text = "Dodatki";
             tabPage5.UseVisualStyleBackColor = true;
+
+            dgvDodatki.AllowUserToAddRows = false;
+            dgvDodatki.AllowUserToDeleteRows = false;
+            dgvDodatki.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvDodatki.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvDodatki.Dock = DockStyle.Fill;
+            dgvDodatki.Location = new Point(3, 3);
+            dgvDodatki.MultiSelect = false;
+            dgvDodatki.Name = "dgvDodatki";
+            dgvDodatki.ReadOnly = true;
+            dgvDodatki.RowHeadersWidth = 51;
+            dgvDodatki.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvDodatki.Size = new Size(968, 464);
+            dgvDodatki.TabIndex = 1;
+
+            panelDodatki.Controls.Add(btnUsunDodatek);
+            panelDodatki.Controls.Add(btnEdytujDodatek);
+            panelDodatki.Controls.Add(btnDodajDodatek);
+            panelDodatki.Dock = DockStyle.Bottom;
+            panelDodatki.Location = new Point(3, 467);
+            panelDodatki.Name = "panelDodatki";
+            panelDodatki.Size = new Size(968, 50);
+            panelDodatki.TabIndex = 0;
+
+            btnUsunDodatek.Location = new Point(260, 9);
+            btnUsunDodatek.Name = "btnUsunDodatek";
+            btnUsunDodatek.Size = new Size(110, 32);
+            btnUsunDodatek.TabIndex = 2;
+            btnUsunDodatek.Text = "Usuń";
+            btnUsunDodatek.UseVisualStyleBackColor = true;
+            btnUsunDodatek.Click += btnUsunDodatek_Click;
+
+            btnEdytujDodatek.Location = new Point(140, 9);
+            btnEdytujDodatek.Name = "btnEdytujDodatek";
+            btnEdytujDodatek.Size = new Size(110, 32);
+            btnEdytujDodatek.TabIndex = 1;
+            btnEdytujDodatek.Text = "Edytuj";
+            btnEdytujDodatek.UseVisualStyleBackColor = true;
+            btnEdytujDodatek.Click += btnEdytujDodatek_Click;
+
+            btnDodajDodatek.Location = new Point(20, 9);
+            btnDodajDodatek.Name = "btnDodajDodatek";
+            btnDodajDodatek.Size = new Size(110, 32);
+            btnDodajDodatek.TabIndex = 0;
+            btnDodajDodatek.Text = "Dodaj";
+            btnDodajDodatek.UseVisualStyleBackColor = true;
+            btnDodajDodatek.Click += btnDodajDodatek_Click;
 
             tabPage6.Controls.Add(dgvStrefy);
             tabPage6.Controls.Add(panelPrzyciski);
@@ -154,6 +211,9 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Pizzeria – System obsługi zamówień";
             tabControl1.ResumeLayout(false);
+            tabPage5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvDodatki).EndInit();
+            panelDodatki.ResumeLayout(false);
             tabPage6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvStrefy).EndInit();
             panelPrzyciski.ResumeLayout(false);
@@ -169,6 +229,11 @@
         private TabPage tabPage4;
         private TabPage tabPage5;
         private TabPage tabPage6;
+        private DataGridView dgvDodatki;
+        private Panel panelDodatki;
+        private Button btnUsunDodatek;
+        private Button btnEdytujDodatek;
+        private Button btnDodajDodatek;
         private Panel panelPrzyciski;
         private Button btnUsunStrefe;
         private Button btnEdytujStrefe;
