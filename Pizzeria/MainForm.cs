@@ -8,6 +8,7 @@ namespace Pizzeria
         private readonly DodatekRepository _dodatkiRepo = new DodatekRepository();
         private readonly KlientRepository _klienciRepo = new KlientRepository();
         private readonly DostawcaRepository _dostawcyRepo = new DostawcaRepository();
+        private readonly ProduktRepository _produktyRepo = new ProduktRepository();
 
         public MainForm()
         {
@@ -16,6 +17,7 @@ namespace Pizzeria
             OdswiezDodatki();
             OdswiezKlientow();
             OdswiezDostawcow();
+            OdswiezProdukty();
         }
 
         private void OdswiezStrefy()
@@ -55,6 +57,22 @@ namespace Pizzeria
             dgvDostawcy.Columns["Status_Dostawcy"].HeaderText = "Status";
             dgvDostawcy.Columns["Liczba_Dostaw"].HeaderText = "Liczba dostaw";
             dgvDostawcy.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        private void OdswiezProdukty()
+        {
+            var wiersze = new List<ProduktWiersz>();
+            foreach (var produkt in _produktyRepo.PobierzWszystkie())
+            {
+                wiersze.Add(new ProduktWiersz(produkt));
+            }
+
+            dgvProdukty.DataSource = wiersze;
+            dgvProdukty.Columns["Produkt"].Visible = false;
+            dgvProdukty.Columns["Szczegoly"].HeaderText = "Szczegóły";
+            dgvProdukty.Columns["Cena"].HeaderText = "Cena (zł)";
+            dgvProdukty.Columns["Cena"].DefaultCellStyle.Format = "N2";
+            dgvProdukty.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
@@ -270,6 +288,59 @@ namespace Pizzeria
             {
                 _dostawcyRepo.Usun(wybrany.Id);
                 OdswiezDostawcow();
+            }
+        }
+
+        private void btnDodajProdukt_Click(object sender, EventArgs e)
+        {
+            using (var okno = new ProduktForm())
+            {
+                if (okno.ShowDialog() == DialogResult.OK && okno.Wynik != null)
+                {
+                    _produktyRepo.Dodaj(okno.Wynik);
+                    OdswiezProdukty();
+                }
+            }
+        }
+
+        private void btnEdytujProdukt_Click(object sender, EventArgs e)
+        {
+            if (dgvProdukty.CurrentRow == null)
+            {
+                return;
+            }
+
+            var wiersz = (ProduktWiersz)dgvProdukty.CurrentRow.DataBoundItem;
+
+            using (var okno = new ProduktForm(wiersz.Produkt))
+            {
+                if (okno.ShowDialog() == DialogResult.OK && okno.Wynik != null)
+                {
+                    _produktyRepo.Zmien(okno.Wynik);
+                    OdswiezProdukty();
+                }
+            }
+        }
+
+        private void btnUsunProdukt_Click(object sender, EventArgs e)
+        {
+            if (dgvProdukty.CurrentRow == null)
+            {
+                return;
+            }
+
+            var wiersz = (ProduktWiersz)dgvProdukty.CurrentRow.DataBoundItem;
+
+            var odpowiedz = MessageBox.Show(
+                "Czy na pewno usunąć produkt „" + wiersz.Nazwa + "”?",
+                "Potwierdzenie",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (odpowiedz == DialogResult.Yes)
+            {
+                _produktyRepo.Usun(wiersz.Produkt.Id);
+                OdswiezProdukty();
             }
         }
     }

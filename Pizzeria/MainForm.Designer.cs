@@ -32,6 +32,11 @@
             btnEdytujDostawce = new Button();
             btnDodajDostawce = new Button();
             tabPage4 = new TabPage();
+            dgvProdukty = new DataGridView();
+            panelProdukty = new Panel();
+            btnUsunProdukt = new Button();
+            btnEdytujProdukt = new Button();
+            btnDodajProdukt = new Button();
             tabPage5 = new TabPage();
             dgvDodatki = new DataGridView();
             panelDodatki = new Panel();
@@ -51,6 +56,9 @@
             tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDostawcy).BeginInit();
             panelDostawcy.SuspendLayout();
+            tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvProdukty).BeginInit();
+            panelProdukty.SuspendLayout();
             tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDodatki).BeginInit();
             panelDodatki.SuspendLayout();
@@ -225,6 +233,8 @@
             // 
             // tabPage4
             // 
+            tabPage4.Controls.Add(dgvProdukty);
+            tabPage4.Controls.Add(panelProdukty);
             tabPage4.Location = new Point(4, 29);
             tabPage4.Name = "tabPage4";
             tabPage4.Padding = new Padding(3);
@@ -232,6 +242,63 @@
             tabPage4.TabIndex = 3;
             tabPage4.Text = "Produkty";
             tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // dgvProdukty
+            // 
+            dgvProdukty.AllowUserToAddRows = false;
+            dgvProdukty.AllowUserToDeleteRows = false;
+            dgvProdukty.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvProdukty.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvProdukty.Dock = DockStyle.Fill;
+            dgvProdukty.Location = new Point(3, 3);
+            dgvProdukty.MultiSelect = false;
+            dgvProdukty.Name = "dgvProdukty";
+            dgvProdukty.ReadOnly = true;
+            dgvProdukty.RowHeadersWidth = 51;
+            dgvProdukty.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvProdukty.Size = new Size(968, 464);
+            dgvProdukty.TabIndex = 1;
+            // 
+            // panelProdukty
+            // 
+            panelProdukty.Controls.Add(btnUsunProdukt);
+            panelProdukty.Controls.Add(btnEdytujProdukt);
+            panelProdukty.Controls.Add(btnDodajProdukt);
+            panelProdukty.Dock = DockStyle.Bottom;
+            panelProdukty.Location = new Point(3, 467);
+            panelProdukty.Name = "panelProdukty";
+            panelProdukty.Size = new Size(968, 50);
+            panelProdukty.TabIndex = 0;
+            // 
+            // btnUsunProdukt
+            // 
+            btnUsunProdukt.Location = new Point(260, 9);
+            btnUsunProdukt.Name = "btnUsunProdukt";
+            btnUsunProdukt.Size = new Size(110, 32);
+            btnUsunProdukt.TabIndex = 2;
+            btnUsunProdukt.Text = "Usuń";
+            btnUsunProdukt.UseVisualStyleBackColor = true;
+            btnUsunProdukt.Click += btnUsunProdukt_Click;
+            // 
+            // btnEdytujProdukt
+            // 
+            btnEdytujProdukt.Location = new Point(140, 9);
+            btnEdytujProdukt.Name = "btnEdytujProdukt";
+            btnEdytujProdukt.Size = new Size(110, 32);
+            btnEdytujProdukt.TabIndex = 1;
+            btnEdytujProdukt.Text = "Edytuj";
+            btnEdytujProdukt.UseVisualStyleBackColor = true;
+            btnEdytujProdukt.Click += btnEdytujProdukt_Click;
+            // 
+            // btnDodajProdukt
+            // 
+            btnDodajProdukt.Location = new Point(20, 9);
+            btnDodajProdukt.Name = "btnDodajProdukt";
+            btnDodajProdukt.Size = new Size(110, 32);
+            btnDodajProdukt.TabIndex = 0;
+            btnDodajProdukt.Text = "Dodaj";
+            btnDodajProdukt.UseVisualStyleBackColor = true;
+            btnDodajProdukt.Click += btnDodajProdukt_Click;
             // 
             // tabPage5
             // 
@@ -387,6 +454,9 @@
             tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvDostawcy).EndInit();
             panelDostawcy.ResumeLayout(false);
+            tabPage4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvProdukty).EndInit();
+            panelProdukty.ResumeLayout(false);
             tabPage5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvDodatki).EndInit();
             panelDodatki.ResumeLayout(false);
@@ -415,6 +485,11 @@
         private Button btnUsunDostawce;
         private Button btnEdytujDostawce;
         private Button btnDodajDostawce;
+        private DataGridView dgvProdukty;
+        private Panel panelProdukty;
+        private Button btnUsunProdukt;
+        private Button btnEdytujProdukt;
+        private Button btnDodajProdukt;
         private DataGridView dgvDodatki;
         private Panel panelDodatki;
         private Button btnUsunDodatek;
