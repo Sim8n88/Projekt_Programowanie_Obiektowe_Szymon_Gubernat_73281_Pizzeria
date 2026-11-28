@@ -36,5 +36,9 @@ namespace Pizzeria
                 Szczegoly = string.Empty;
             }
         }
+        public override string ToString()
+        {
+            return $"{Typ}: {Nazwa} ({Szczegoly}) - {Cena:F2} zł";
+        }
     }
 }

@@ -93,7 +93,8 @@ namespace Pizzeria.Models.Klasy
                     dozwolone = nowyStatus == StatusZamowienia.Gotowe || nowyStatus == StatusZamowienia.Anulowane;
                     break;
                 case StatusZamowienia.Gotowe:
-                    dozwolone = nowyStatus == StatusZamowienia.W_Dostawie;
+                    dozwolone = nowyStatus == StatusZamowienia.W_Dostawie
+                        || (this is ZamowienieNaWynos && nowyStatus == StatusZamowienia.Zrealizowane);
                     break;
                 case StatusZamowienia.W_Dostawie:
                     dozwolone = nowyStatus == StatusZamowienia.Zrealizowane;

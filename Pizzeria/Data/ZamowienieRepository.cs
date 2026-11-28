@@ -150,7 +150,7 @@ namespace Pizzeria.Data
             ZapiszPozycje(polaczenie, zamowienie.Id, zamowienie);
         }
 
-        public void Usun(int id)
+        public void Usun(int id) 
         {
             using var polaczenie = Baza.PolaczZBaza();
 

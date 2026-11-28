@@ -19,6 +19,13 @@
         {
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            dgvZamowienia = new DataGridView();
+            panelZamowienia = new Panel();
+            btnUsunZamowienie = new Button();
+            btnAnulujZamowienie = new Button();
+            btnPrzydzielDostawce = new Button();
+            btnNastepnyStatus = new Button();
+            btnNoweZamowienie = new Button();
             tabPage2 = new TabPage();
             dgvKlienci = new DataGridView();
             panelKlienci = new Panel();
@@ -50,6 +57,9 @@
             btnEdytujStrefe = new Button();
             btnDodajStrefe = new Button();
             tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvZamowienia).BeginInit();
+            panelZamowienia.SuspendLayout();
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvKlienci).BeginInit();
             panelKlienci.SuspendLayout();
@@ -84,6 +94,8 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(dgvZamowienia);
+            tabPage1.Controls.Add(panelZamowienia);
             tabPage1.Location = new Point(4, 29);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
@@ -91,7 +103,85 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Zamówienia";
             tabPage1.UseVisualStyleBackColor = true;
-            tabPage1.Click += tabPage1_Click;
+            // 
+            // dgvZamowienia
+            // 
+            dgvZamowienia.AllowUserToAddRows = false;
+            dgvZamowienia.AllowUserToDeleteRows = false;
+            dgvZamowienia.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvZamowienia.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvZamowienia.Dock = DockStyle.Fill;
+            dgvZamowienia.Location = new Point(3, 3);
+            dgvZamowienia.MultiSelect = false;
+            dgvZamowienia.Name = "dgvZamowienia";
+            dgvZamowienia.ReadOnly = true;
+            dgvZamowienia.RowHeadersWidth = 51;
+            dgvZamowienia.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvZamowienia.Size = new Size(968, 464);
+            dgvZamowienia.TabIndex = 1;
+            // 
+            // panelZamowienia
+            // 
+            panelZamowienia.Controls.Add(btnUsunZamowienie);
+            panelZamowienia.Controls.Add(btnAnulujZamowienie);
+            panelZamowienia.Controls.Add(btnPrzydzielDostawce);
+            panelZamowienia.Controls.Add(btnNastepnyStatus);
+            panelZamowienia.Controls.Add(btnNoweZamowienie);
+            panelZamowienia.Dock = DockStyle.Bottom;
+            panelZamowienia.Location = new Point(3, 467);
+            panelZamowienia.Name = "panelZamowienia";
+            panelZamowienia.Size = new Size(968, 50);
+            panelZamowienia.TabIndex = 0;
+            // 
+            // btnUsunZamowienie
+            // 
+            btnUsunZamowienie.Location = new Point(620, 9);
+            btnUsunZamowienie.Name = "btnUsunZamowienie";
+            btnUsunZamowienie.Size = new Size(110, 32);
+            btnUsunZamowienie.TabIndex = 4;
+            btnUsunZamowienie.Text = "Usuń";
+            btnUsunZamowienie.UseVisualStyleBackColor = true;
+            btnUsunZamowienie.Click += btnUsunZamowienie_Click;
+            // 
+            // btnAnulujZamowienie
+            // 
+            btnAnulujZamowienie.Location = new Point(470, 9);
+            btnAnulujZamowienie.Name = "btnAnulujZamowienie";
+            btnAnulujZamowienie.Size = new Size(140, 32);
+            btnAnulujZamowienie.TabIndex = 3;
+            btnAnulujZamowienie.Text = "Anuluj zamówienie";
+            btnAnulujZamowienie.UseVisualStyleBackColor = true;
+            btnAnulujZamowienie.Click += btnAnulujZamowienie_Click;
+            // 
+            // btnPrzydzielDostawce
+            // 
+            btnPrzydzielDostawce.Location = new Point(310, 9);
+            btnPrzydzielDostawce.Name = "btnPrzydzielDostawce";
+            btnPrzydzielDostawce.Size = new Size(150, 32);
+            btnPrzydzielDostawce.TabIndex = 2;
+            btnPrzydzielDostawce.Text = "Przydziel dostawcę";
+            btnPrzydzielDostawce.UseVisualStyleBackColor = true;
+            btnPrzydzielDostawce.Click += btnPrzydzielDostawce_Click;
+            // 
+            // btnNastepnyStatus
+            // 
+            btnNastepnyStatus.Location = new Point(140, 9);
+            btnNastepnyStatus.Name = "btnNastepnyStatus";
+            btnNastepnyStatus.Size = new Size(160, 32);
+            btnNastepnyStatus.TabIndex = 1;
+            btnNastepnyStatus.Text = "Następny status";
+            btnNastepnyStatus.UseVisualStyleBackColor = true;
+            btnNastepnyStatus.Click += btnNastepnyStatus_Click;
+            // 
+            // btnNoweZamowienie
+            // 
+            btnNoweZamowienie.Location = new Point(20, 9);
+            btnNoweZamowienie.Name = "btnNoweZamowienie";
+            btnNoweZamowienie.Size = new Size(110, 32);
+            btnNoweZamowienie.TabIndex = 0;
+            btnNoweZamowienie.Text = "Nowe";
+            btnNoweZamowienie.UseVisualStyleBackColor = true;
+            btnNoweZamowienie.Click += btnNoweZamowienie_Click;
             // 
             // tabPage2
             // 
@@ -448,6 +538,9 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Pizzeria – System obsługi zamówień";
             tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvZamowienia).EndInit();
+            panelZamowienia.ResumeLayout(false);
             tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvKlienci).EndInit();
             panelKlienci.ResumeLayout(false);
@@ -475,6 +568,13 @@
         private TabPage tabPage4;
         private TabPage tabPage5;
         private TabPage tabPage6;
+        private DataGridView dgvZamowienia;
+        private Panel panelZamowienia;
+        private Button btnUsunZamowienie;
+        private Button btnAnulujZamowienie;
+        private Button btnPrzydzielDostawce;
+        private Button btnNastepnyStatus;
+        private Button btnNoweZamowienie;
         private DataGridView dgvKlienci;
         private Panel panelKlienci;
         private Button btnUsunKlienta;

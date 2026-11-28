@@ -1,5 +1,6 @@
 using Pizzeria.Data;
 using Pizzeria.Models.Klasy;
+using Pizzeria.Models.Enums;
 namespace Pizzeria
 {
     public partial class MainForm : Form
@@ -9,6 +10,7 @@ namespace Pizzeria
         private readonly KlientRepository _klienciRepo = new KlientRepository();
         private readonly DostawcaRepository _dostawcyRepo = new DostawcaRepository();
         private readonly ProduktRepository _produktyRepo = new ProduktRepository();
+        private readonly ZamowienieRepository _zamowieniaRepo = new ZamowienieRepository();
 
         public MainForm()
         {
@@ -18,6 +20,7 @@ namespace Pizzeria
             OdswiezKlientow();
             OdswiezDostawcow();
             OdswiezProdukty();
+            OdswiezZamowienia();
         }
 
         private void OdswiezStrefy()
@@ -75,8 +78,32 @@ namespace Pizzeria
             dgvProdukty.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
-        private void tabPage1_Click(object sender, EventArgs e)
+        private void OdswiezZamowienia()
         {
+            var wiersze = new List<ZamowienieWiersz>();
+            foreach (var zamowienie in _zamowieniaRepo.PobierzWszystkie())
+            {
+                wiersze.Add(new ZamowienieWiersz(zamowienie));
+            }
+
+            dgvZamowienia.DataSource = wiersze;
+            dgvZamowienia.Columns["Zamowienie"].Visible = false;
+            dgvZamowienia.Columns["Data"].HeaderText = "Data złożenia";
+            dgvZamowienia.Columns["Data"].DefaultCellStyle.Format = "g";
+            dgvZamowienia.Columns["Razem"].HeaderText = "Razem (zł)";
+            dgvZamowienia.Columns["Razem"].DefaultCellStyle.Format = "N2";
+            dgvZamowienia.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        private Zamowienie? WybraneZamowienie()
+        {
+            if (dgvZamowienia.CurrentRow == null)
+            {
+                MessageBox.Show("Zaznacz zamówienie.");
+                return null;
+            }
+
+            return ((ZamowienieWiersz)dgvZamowienia.CurrentRow.DataBoundItem).Zamowienie;
         }
 
         private void btnDodajStrefe_Click(object sender, EventArgs e)
@@ -341,6 +368,159 @@ namespace Pizzeria
             {
                 _produktyRepo.Usun(wiersz.Produkt.Id);
                 OdswiezProdukty();
+            }
+        }
+
+        private void btnNoweZamowienie_Click(object sender, EventArgs e)
+        {
+            using (var okno = new ZamowienieForm())
+            {
+                if (okno.ShowDialog() == DialogResult.OK && okno.Wynik != null)
+                {
+                    try
+                    {
+                        _zamowieniaRepo.Dodaj(okno.Wynik);
+                        OdswiezZamowienia();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
+        }
+
+        private void btnNastepnyStatus_Click(object sender, EventArgs e)
+        {
+            var zamowienie = WybraneZamowienie();
+            if (zamowienie == null)
+            {
+                return;
+            }
+
+            try
+            {
+                switch (zamowienie.Status)
+                {
+                    case StatusZamowienia.Przyjete:
+                        zamowienie.ZmienStatus(StatusZamowienia.W_Przygotowaniu);
+                        break;
+                    case StatusZamowienia.W_Przygotowaniu:
+                        zamowienie.ZmienStatus(StatusZamowienia.Gotowe);
+                        break;
+                    case StatusZamowienia.Gotowe:
+                        if (zamowienie is ZamowienieZDostawa)
+                        {
+                            MessageBox.Show("Zamówienie z dostawą: użyj przycisku „Przydziel dostawcę”.");
+                            return;
+                        }
+                        zamowienie.ZmienStatus(StatusZamowienia.Zrealizowane);
+                        break;
+                    case StatusZamowienia.W_Dostawie:
+                        zamowienie.ZmienStatus(StatusZamowienia.Zrealizowane);
+                        if (zamowienie is ZamowienieZDostawa dostawa && dostawa.Dostawca != null)
+                        {
+                            dostawa.Dostawca.ZakonczDostawe();
+                            _dostawcyRepo.Zmien(dostawa.Dostawca);
+                            OdswiezDostawcow();
+                        }
+                        break;
+                    default:
+                        MessageBox.Show("To zamówienie jest już zakończone.");
+                        return;
+                }
+
+                _zamowieniaRepo.Zmien(zamowienie);
+                OdswiezZamowienia();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnPrzydzielDostawce_Click(object sender, EventArgs e)
+        {
+            var zamowienie = WybraneZamowienie();
+            if (zamowienie == null)
+            {
+                return;
+            }
+
+            if (zamowienie is not ZamowienieZDostawa dostawa)
+            {
+                MessageBox.Show("To zamówienie jest na wynos.");
+                return;
+            }
+
+            var wolny = _dostawcyRepo.PobierzWszystkie()
+                .FirstOrDefault(d => d.Status_Dostawcy == StatusDostawcy.Wolny);
+
+            if (wolny == null)
+            {
+                MessageBox.Show("Brak wolnych dostawców.");
+                return;
+            }
+
+            try
+            {
+                dostawa.PrzydzielDostawce(wolny);
+                _dostawcyRepo.Zmien(wolny);
+                _zamowieniaRepo.Zmien(dostawa);
+                OdswiezDostawcow();
+                OdswiezZamowienia();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnAnulujZamowienie_Click(object sender, EventArgs e)
+        {
+            var zamowienie = WybraneZamowienie();
+            if (zamowienie == null)
+            {
+                return;
+            }
+
+            try
+            {
+                zamowienie.ZmienStatus(StatusZamowienia.Anulowane);
+                _zamowieniaRepo.Zmien(zamowienie);
+                OdswiezZamowienia();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnUsunZamowienie_Click(object sender, EventArgs e)
+        {
+            var zamowienie = WybraneZamowienie();
+            if (zamowienie == null)
+            {
+                return;
+            }
+
+            var odpowiedz = MessageBox.Show(
+                "Czy na pewno usunąć zamówienie nr " + zamowienie.Id + "?",
+                "Potwierdzenie",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (odpowiedz == DialogResult.Yes)
+            {
+                try
+                {
+                    _zamowieniaRepo.Usun(zamowienie.Id);
+                    OdswiezZamowienia();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
     }
