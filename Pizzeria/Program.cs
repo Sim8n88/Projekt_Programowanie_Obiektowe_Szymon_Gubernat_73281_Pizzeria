@@ -9,6 +9,7 @@ namespace Pizzeria
         {
             ApplicationConfiguration.Initialize();
             Pizzeria.Data.Baza.Inicjalizuj();
+            Pizzeria.Data.DaneStartowe.Wstaw();
             Application.Run(new MainForm());
         }
     }
