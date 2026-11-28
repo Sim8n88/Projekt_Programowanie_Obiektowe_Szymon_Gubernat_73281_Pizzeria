@@ -26,6 +26,11 @@
             btnEdytujKlienta = new Button();
             btnDodajKlienta = new Button();
             tabPage3 = new TabPage();
+            dgvDostawcy = new DataGridView();
+            panelDostawcy = new Panel();
+            btnUsunDostawce = new Button();
+            btnEdytujDostawce = new Button();
+            btnDodajDostawce = new Button();
             tabPage4 = new TabPage();
             tabPage5 = new TabPage();
             dgvDodatki = new DataGridView();
@@ -43,6 +48,9 @@
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvKlienci).BeginInit();
             panelKlienci.SuspendLayout();
+            tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvDostawcy).BeginInit();
+            panelDostawcy.SuspendLayout();
             tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDodatki).BeginInit();
             panelDodatki.SuspendLayout();
@@ -148,6 +156,8 @@
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(dgvDostawcy);
+            tabPage3.Controls.Add(panelDostawcy);
             tabPage3.Location = new Point(4, 29);
             tabPage3.Name = "tabPage3";
             tabPage3.Padding = new Padding(3);
@@ -155,6 +165,63 @@
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Dostawcy";
             tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // dgvDostawcy
+            // 
+            dgvDostawcy.AllowUserToAddRows = false;
+            dgvDostawcy.AllowUserToDeleteRows = false;
+            dgvDostawcy.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvDostawcy.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvDostawcy.Dock = DockStyle.Fill;
+            dgvDostawcy.Location = new Point(3, 3);
+            dgvDostawcy.MultiSelect = false;
+            dgvDostawcy.Name = "dgvDostawcy";
+            dgvDostawcy.ReadOnly = true;
+            dgvDostawcy.RowHeadersWidth = 51;
+            dgvDostawcy.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvDostawcy.Size = new Size(968, 464);
+            dgvDostawcy.TabIndex = 1;
+            // 
+            // panelDostawcy
+            // 
+            panelDostawcy.Controls.Add(btnUsunDostawce);
+            panelDostawcy.Controls.Add(btnEdytujDostawce);
+            panelDostawcy.Controls.Add(btnDodajDostawce);
+            panelDostawcy.Dock = DockStyle.Bottom;
+            panelDostawcy.Location = new Point(3, 467);
+            panelDostawcy.Name = "panelDostawcy";
+            panelDostawcy.Size = new Size(968, 50);
+            panelDostawcy.TabIndex = 0;
+            // 
+            // btnUsunDostawce
+            // 
+            btnUsunDostawce.Location = new Point(260, 9);
+            btnUsunDostawce.Name = "btnUsunDostawce";
+            btnUsunDostawce.Size = new Size(110, 32);
+            btnUsunDostawce.TabIndex = 2;
+            btnUsunDostawce.Text = "Usuń";
+            btnUsunDostawce.UseVisualStyleBackColor = true;
+            btnUsunDostawce.Click += btnUsunDostawce_Click;
+            // 
+            // btnEdytujDostawce
+            // 
+            btnEdytujDostawce.Location = new Point(140, 9);
+            btnEdytujDostawce.Name = "btnEdytujDostawce";
+            btnEdytujDostawce.Size = new Size(110, 32);
+            btnEdytujDostawce.TabIndex = 1;
+            btnEdytujDostawce.Text = "Edytuj";
+            btnEdytujDostawce.UseVisualStyleBackColor = true;
+            btnEdytujDostawce.Click += btnEdytujDostawce_Click;
+            // 
+            // btnDodajDostawce
+            // 
+            btnDodajDostawce.Location = new Point(20, 9);
+            btnDodajDostawce.Name = "btnDodajDostawce";
+            btnDodajDostawce.Size = new Size(110, 32);
+            btnDodajDostawce.TabIndex = 0;
+            btnDodajDostawce.Text = "Dodaj";
+            btnDodajDostawce.UseVisualStyleBackColor = true;
+            btnDodajDostawce.Click += btnDodajDostawce_Click;
             // 
             // tabPage4
             // 
@@ -317,6 +384,9 @@
             tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvKlienci).EndInit();
             panelKlienci.ResumeLayout(false);
+            tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvDostawcy).EndInit();
+            panelDostawcy.ResumeLayout(false);
             tabPage5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvDodatki).EndInit();
             panelDodatki.ResumeLayout(false);
@@ -340,6 +410,11 @@
         private Button btnUsunKlienta;
         private Button btnEdytujKlienta;
         private Button btnDodajKlienta;
+        private DataGridView dgvDostawcy;
+        private Panel panelDostawcy;
+        private Button btnUsunDostawce;
+        private Button btnEdytujDostawce;
+        private Button btnDodajDostawce;
         private DataGridView dgvDodatki;
         private Panel panelDodatki;
         private Button btnUsunDodatek;

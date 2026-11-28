@@ -7,6 +7,7 @@ namespace Pizzeria
         private readonly StrefaRepository _strefyRepo = new StrefaRepository();
         private readonly DodatekRepository _dodatkiRepo = new DodatekRepository();
         private readonly KlientRepository _klienciRepo = new KlientRepository();
+        private readonly DostawcaRepository _dostawcyRepo = new DostawcaRepository();
 
         public MainForm()
         {
@@ -14,6 +15,7 @@ namespace Pizzeria
             OdswiezStrefy();
             OdswiezDodatki();
             OdswiezKlientow();
+            OdswiezDostawcow();
         }
 
         private void OdswiezStrefy()
@@ -43,6 +45,16 @@ namespace Pizzeria
             dgvKlienci.Columns["Imie"].HeaderText = "Imię";
             dgvKlienci.Columns["Staly_Klient"].HeaderText = "Stały klient";
             dgvKlienci.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        private void OdswiezDostawcow()
+        {
+            dgvDostawcy.DataSource = _dostawcyRepo.PobierzWszystkie();
+            dgvDostawcy.Columns["Id"].Visible = false;
+            dgvDostawcy.Columns["Imie"].HeaderText = "Imię";
+            dgvDostawcy.Columns["Status_Dostawcy"].HeaderText = "Status";
+            dgvDostawcy.Columns["Liczba_Dostaw"].HeaderText = "Liczba dostaw";
+            dgvDostawcy.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
@@ -205,6 +217,59 @@ namespace Pizzeria
             {
                 _klienciRepo.Usun(wybrany.Id);
                 OdswiezKlientow();
+            }
+        }
+
+        private void btnDodajDostawce_Click(object sender, EventArgs e)
+        {
+            using (var okno = new DostawcaForm())
+            {
+                if (okno.ShowDialog() == DialogResult.OK && okno.Wynik != null)
+                {
+                    _dostawcyRepo.Dodaj(okno.Wynik);
+                    OdswiezDostawcow();
+                }
+            }
+        }
+
+        private void btnEdytujDostawce_Click(object sender, EventArgs e)
+        {
+            if (dgvDostawcy.CurrentRow == null)
+            {
+                return;
+            }
+
+            var wybrany = (Dostawca)dgvDostawcy.CurrentRow.DataBoundItem;
+
+            using (var okno = new DostawcaForm(wybrany))
+            {
+                if (okno.ShowDialog() == DialogResult.OK && okno.Wynik != null)
+                {
+                    _dostawcyRepo.Zmien(okno.Wynik);
+                    OdswiezDostawcow();
+                }
+            }
+        }
+
+        private void btnUsunDostawce_Click(object sender, EventArgs e)
+        {
+            if (dgvDostawcy.CurrentRow == null)
+            {
+                return;
+            }
+
+            var wybrany = (Dostawca)dgvDostawcy.CurrentRow.DataBoundItem;
+
+            var odpowiedz = MessageBox.Show(
+                "Czy na pewno usunąć dostawcę „" + wybrany.Imie + " " + wybrany.Nazwisko + "”?",
+                "Potwierdzenie",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (odpowiedz == DialogResult.Yes)
+            {
+                _dostawcyRepo.Usun(wybrany.Id);
+                OdswiezDostawcow();
             }
         }
     }
